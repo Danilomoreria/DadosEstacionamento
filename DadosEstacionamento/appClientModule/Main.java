@@ -25,6 +25,8 @@ public class Main {
 			System.out.println("==== ESTACIONAMENTO ====");
 			System.out.println("1 - Registrar Entrada");
 			System.out.println("2 - Registrar Saída");
+			System.out.println("3 - Listar Veículo no Pátio");
+			System.out.println("4- Histórico de Cliente");
 			System.out.println("0 - Sair");
 			System.out.print("Escolha: ");
 
@@ -40,16 +42,18 @@ public class Main {
 					Entrada entrada = new Entrada();
 
 					System.out.print("Nome do cliente: ");
-
 					entrada.setNomeCliente(scanner.nextLine());
 
 					System.out.println("Digite a placa do veículo: ");
-
 					entrada.setPlaca(scanner.nextLine());
 
 					System.out.println("Digite o tipo do veiculo (CARRO/MOTO): ");
-
 					entrada.setTipoVeiculo(scanner.nextLine());
+
+					System.out.println("Número da vaga: ");
+					entrada.setNumeroVaga(scanner.nextInt());
+
+					scanner.nextLine();
 
 					entradaDAO.inserir(entrada);
 
@@ -64,6 +68,8 @@ public class Main {
 				}
 
 				break;
+				
+				//MOSTRAR RECIBO
 
 			case 2:
 
@@ -121,6 +127,8 @@ public class Main {
 					System.out.println("Tempo: " + minutos + " minutos");
 
 					System.out.printf("Valor: R$ %.2f%n", valorTotal);
+					
+					System.out.println("\n");
 
 				} catch (SQLException e) {
 
@@ -130,6 +138,38 @@ public class Main {
 				}
 
 				break;
+
+			case 3:
+
+				try {
+					entradaDAO.listarPatio();
+
+				} catch (SQLException e) {
+
+					System.out.println("Erro ao consultar o banco de dados!");
+
+					System.out.println(e.getMessage());
+
+				}
+
+				break;
+				
+			case 4:
+
+			    try {
+
+			        entradaDAO.listarHistorico();
+
+			    } catch (SQLException e) {
+
+			        System.out.println(
+			                "Erro ao consultar histórico.");
+
+			        System.out.println(
+			                e.getMessage());
+			    }
+
+			    break;
 
 			case 0:
 

@@ -3,11 +3,21 @@ package model;
 import java.time.LocalDateTime;
 
 public class Entrada {
+	// ATRIBUTO ENTRADA
 
 	private int idEntrada;
 	private String nomeCliente;
 	private String placa;
 	private String tipoVeiculo;
+
+	// ATRIBUTO SAIDA
+	private LocalDateTime dtEntrada;
+	private String statusVeiculo;
+
+	// ATRIBUTO VAGAS
+	private int numeroVaga;
+
+	// GETTERS E SETTERS ENTRADA
 
 	public int getIdEntrada() {
 		return idEntrada;
@@ -41,11 +51,6 @@ public class Entrada {
 		this.tipoVeiculo = tipoVeiculo.toUpperCase();
 	}
 
-	// ATRIBUTO SAIDA
-
-	private LocalDateTime dtEntrada;
-	private String statusVeiculo;
-
 	// GETTERS E SETTERS SAIDA
 
 	public LocalDateTime getDtEntrada() {
@@ -62,6 +67,15 @@ public class Entrada {
 
 	public void setStatusVeiculo(String statusVeiculo) {
 		this.statusVeiculo = statusVeiculo;
+	}
+
+	// GETTERS E SETTERS NUMEROVAG
+	public int getNumeroVaga() {
+		return numeroVaga;
+	}
+
+	public void setNumeroVaga(int numeroVaga) {
+		this.numeroVaga = numeroVaga;
 	}
 
 }
