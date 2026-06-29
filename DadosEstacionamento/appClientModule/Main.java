@@ -6,7 +6,7 @@ import java.util.Scanner;
 import dao.EntradaDAO;
 import dao.SaidaDAO;
 import dao.TarifaDAO;
-
+import dao.VagaDAO;
 import model.Entrada;
 import model.Saida;
 
@@ -44,32 +44,46 @@ public class Main {
 					System.out.print("Nome do cliente: ");
 					entrada.setNomeCliente(scanner.nextLine());
 
-					System.out.println("Digite a placa do veículo: ");
+					System.out.print("Digite a placa do veículo: ");
 					entrada.setPlaca(scanner.nextLine());
 
-					System.out.println("Digite o tipo do veiculo (CARRO/MOTO): ");
+					System.out.print("Digite o tipo do veículo (CARRO/MOTO): ");
 					entrada.setTipoVeiculo(scanner.nextLine());
 
-					System.out.println("Número da vaga: ");
-					entrada.setNumeroVaga(scanner.nextInt());
+					// Procura uma vaga automaticamente
+					VagaDAO vagaDAO = new VagaDAO();
 
-					scanner.nextLine();
+					Integer vaga = vagaDAO.buscarVagaLivre();
 
+					if (vaga == null) {
+
+						System.out.println("Estacionamento lotado!");
+
+						break;
+					}
+
+					// Atribui a vaga encontrada ao veículo
+					entrada.setNumeroVaga(vaga);
+
+					System.out.println("\nVaga disponível encontrada: " + vaga);
+
+					// Salva a entrada
 					entradaDAO.inserir(entrada);
+
+					// Marca a vaga como ocupada
+					vagaDAO.ocuparVaga(vaga);
 
 					System.out.println("\nEntrada registrada com sucesso!");
 
 				} catch (SQLException e) {
 
-					System.out.println("\nErro ao salvar com o banco de dados!");
-
+					System.out.println("\nErro ao salvar no banco de dados!");
 					System.out.println(e.getMessage());
 
 				}
 
 				break;
-				
-				//MOSTRAR RECIBO
+			// MOSTRAR RECIBO
 
 			case 2:
 
@@ -127,7 +141,7 @@ public class Main {
 					System.out.println("Tempo: " + minutos + " minutos");
 
 					System.out.printf("Valor: R$ %.2f%n", valorTotal);
-					
+
 					System.out.println("\n");
 
 				} catch (SQLException e) {
@@ -153,23 +167,21 @@ public class Main {
 				}
 
 				break;
-				
+
 			case 4:
 
-			    try {
+				try {
 
-			        entradaDAO.listarHistorico();
+					entradaDAO.listarHistorico();
 
-			    } catch (SQLException e) {
+				} catch (SQLException e) {
 
-			        System.out.println(
-			                "Erro ao consultar histórico.");
+					System.out.println("Erro ao consultar histórico.");
 
-			        System.out.println(
-			                e.getMessage());
-			    }
+					System.out.println(e.getMessage());
+				}
 
-			    break;
+				break;
 
 			case 0:
 

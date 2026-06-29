@@ -9,12 +9,13 @@ OQUE O SISTEMA DEVE FAZER?
 	-Tempo calculado automático
 	-Geração de recibo formatado
 3 - Listar Veículos no Pátio
-	
+	-Número da vaga
 4 - Buscar Veículo por Placa
    Digita a placa o sistema retorna:
 	-Cliente
 	-Horário de entrada
 	-Se ainda está no pátio
+	(criar um loop se não estiver no patio)
 5 - Exibir Histórico do Cliente
 	Busca pelo nome ou placa:
 	-Todas entradas e saídas
